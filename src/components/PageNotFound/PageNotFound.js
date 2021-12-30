@@ -14,6 +14,6 @@ const PageNotFound = () => {
 
 
 
-export dedault PageNotFound
+export default PageNotFound
 
 

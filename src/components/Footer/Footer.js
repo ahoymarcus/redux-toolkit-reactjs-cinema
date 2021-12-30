@@ -1,4 +1,4 @@
-import Footer from 'react';
+import React from 'react';
 
 
 
@@ -14,6 +14,6 @@ const Footer = () => {
 
 
 
-export dedault Footer;
+export default Footer;
 
 

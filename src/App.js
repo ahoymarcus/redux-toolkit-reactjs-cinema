@@ -1,13 +1,18 @@
 // https://www.youtube.com/watch?v=2kL28Qyw9-0
-//  0hs  14' 04''
-  
+//  0hs  18' 14''
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // styles
 import './App.scss'; 
   
-// pages
-
 // components
-
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
+import Home from './components/Home/Home';
+import MovieDetail from './components/MovieDetail/MovieDetail';
+ import PageNotFound from './components/PageNotFound/PageNotFound';
+ 
+ 
  
 
 function App() {
@@ -17,8 +22,17 @@ function App() {
  
   return (
     <div className="app">
-			<p>App</p>
-			
+			<Router>
+				<Header></Header>
+				<Routes>
+					
+					<Route path="/" element={<Home />} />
+					<Route path="/movie/:imdbID" element={<MovieDetail />} />
+					<Route path="*" element={<PageNotFound />} />
+					
+				</Routes>
+				<Footer />
+			</Router>
 				
 			
 		</div>
