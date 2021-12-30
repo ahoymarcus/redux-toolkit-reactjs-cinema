@@ -1,17 +1,25 @@
 import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+
+// actions
+import { addMovies } from '../../features/movies/movieSlice';
 
 // styles
-import MovieList from '../MovieList/MovieList';
 
 // components
+import MovieList from '../MovieList/MovieList';
 import movieApi from '../../common/apis/movieApi';
 import { APIKey } from '../../common/apis/MovieApiKey';
 
 
 
+
 const Home = () => {
-	const movieText = "Harry";
+	const dispatch = useDispatch();
 	
+	
+	
+	const movieText = "Harry";
 	
 	useEffect(() => {
 		const fetchMovies = async () => {
@@ -21,10 +29,13 @@ const Home = () => {
 				});
 				
 			console.log('API response = ', response);
+			
+			dispatch(addMovies(response.data));
 		};
 		
 		fetchMovies();
 	}, []);
+	
 	
 	
 	return (

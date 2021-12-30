@@ -5,7 +5,7 @@ import { createSlice } from '@reduxjs/toolkit';
 // 1. slice name 2. initial state 
 // 3. reducers 4. extra reducers (optional)
 const initialState = {
-	movies: []
+	movies: {},
 };
 
 
