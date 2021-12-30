@@ -1,8 +1,8 @@
-# Redux-toolkit Cinema App
+# Redux-toolkit React-Js Cinema App
 
 <br />
 
-O projeto cria um app com React-JS que consome de uma API pública de produtos de loja e renderiza os itens numa página web de Shopping Cart.:[^1]
+O projeto cria um app com React-JS que consome de uma API pública de ...:[^1]
 
 <br />
 
@@ -225,9 +225,9 @@ const dispatch = useDispatch();
 
 <br />
 
-### Imagem da vitrine de produtos criada pelo App Redux Shop:
+### I:
 
-![Imagem da vitrine de produtos criada pelo App Redux Shop](/public/images/redux-reactjs-shopping-cart-01.png)
+![Imagem da vitrine de produtos criada pelo App Redux Shop](/public/images/)
 
 
 
@@ -236,9 +236,9 @@ const dispatch = useDispatch();
 
 <br />
 
-### Imagem da página de detales do produto selecionado renderizada pelo App Redux Shop:
+### I:
 
-![Imagem da página de detales do produto selecionado renderizada pelo App Redux Shop](/public/images/redux-reactjs-shopping-cart-02.png)
+![Imagem da página de detales do produto selecionado renderizada pelo App Redux Shop](/public/images/)
 
 
 

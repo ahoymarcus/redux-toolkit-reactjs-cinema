@@ -1,8 +1,8 @@
 // https://www.youtube.com/watch?v=2kL28Qyw9-0
-//  0hs  13' 04''
+//  0hs  14' 04''
   
 // styles
-//import './App.scss'; 
+import './App.scss'; 
   
 // pages
 
