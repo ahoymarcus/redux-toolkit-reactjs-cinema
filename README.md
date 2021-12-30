@@ -26,8 +26,9 @@ Dependências:
 - React-router-dom
 - Redux
 - React-redux
+- @Reduxjs/toolkit
 - Axios
-
+- Node-scss
 
 
 <br />
