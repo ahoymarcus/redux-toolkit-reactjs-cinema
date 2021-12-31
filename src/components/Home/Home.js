@@ -2,7 +2,10 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 // actions
-import { fetchAsyncMovies } from '../../features/movies/movieSlice';
+import { 
+	fetchAsyncMovies,
+	fetchAsyncShows
+} from '../../features/movies/movieSlice';
 
 // styles
 
@@ -18,6 +21,7 @@ const Home = () => {
 	
 	useEffect(() => {
 		dispatch(fetchAsyncMovies());
+		dispatch(fetchAsyncShows());
 	}, []);
 	
 	
