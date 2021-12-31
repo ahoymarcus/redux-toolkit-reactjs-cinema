@@ -1,7 +1,7 @@
 @import '../../common/colors.scss';
 
 
-.movie-list {
+.movie-list, .show-list {
 	margin: 20px 0px;
 	
 	h2 {
@@ -11,7 +11,7 @@
 	}
 }
 
-.movie-list-container{
+.movie-list-container, .shows-list-container {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
 	grid-gap: 15px;
