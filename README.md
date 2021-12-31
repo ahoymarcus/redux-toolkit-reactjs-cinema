@@ -6,17 +6,17 @@ O projeto cria um app com React-JS que consome de uma API pública de ...:[^1]
 
 <br />
 
-Como funcionalidades especiais, o app utiliza Redux para gerenciar o estado geral da aplicação e React-redux para definir a comunicação da aplicação com a Store criada para os estados.
+Como funcionalidades especiais, o app utiliza o toolkit Reduxjs/toolkit para simplificar o uso do Redux para gerenciar o estado geral da aplicação. Tem ainda o uso da biblioteca React-redux para definir a comunicação da aplicação com a Store criada para os estados.
 
 
 <br />
 
-Ademais, o app usa React-router-dom para criar um sistema de roteamento de páginas no frontend, incluindo o uso de captura de parámetros de URL para a renderização de uma página de detalhe de produto a partir de ID passado no endereço. 
+Ademais, o app usa React-router-dom para criar um sistema de roteamento de páginas no frontend, incluindo o uso de captura de parámetros de URL para a renderização de uma página de detalhe de filme a partir de ID passado no endereço. 
 
 
 <br />
 
-Finalmente, o app Cart pode ainda fazer requisições HTTP usando Axios para receber os dados de APIs da web.
+Finalmente, o app ainda utiliza as bibliotecas axios para fazer requisições HTTP usando Axios para receber os dados de APIs da web e Node-scss para modular a arquitetura de de estilo CSS.
 
 <br />
 
@@ -43,140 +43,85 @@ Dependências:
 
 <br />
 
-### Aqui podemos ver o sistema de pastas para os componentes do Redux:
+### A:
 
-![Abaixo temos o sistema de pastas para os componentes do Redux](/public/images/estrutura-de-pastas-para-os-componentes-do-redux.png)
-
-
-<br />
-
-Agora, criando um módulo com constantes para separar a definição de todos os tipos de **Actions** aceitas pelo sistema. No caso temos 03:
-
-<br />
-
-```
-export const ActionTypes = {
-	SET_PRODUCTS: 'SET_PRODUCTS',
-	SELECTED_PRODUCT: 'SELECTED_PRODUCT',
-	REMOVE_SELECTED_PRODUCT: 'REMOVE_SELECTED_PRODUCT'
-}; 
-```
-
-<br />
-
-A seguir, temos a definição do módulo para as **Actions** propriamente ditas:
-
-- Set Products 
-- Selected Products
-- Remove Selected Product
+![Abaixo temos o sistema de pastas para os componentes do Redux](/public/images/)
 
 
 <br />
 
-```
-import { ActionTypes } from '../constants/action-types';
-
-export const setProducts = (products) => {
-	return  {
-		type: ActionTypes.SET_PRODUCTS,
-		payload: products,
-	};
-};
-
-
-export const selectedProduct = (product) => {
-	return {
-		type: ActionTypes.SELECTED_PRODUCT,
-		payload: product,
-	};
-};
-
-export const removeSelectedProduct = () => {
-	return {
-		type: ActionTypes.REMOVE_SELECTED_PRODUCT,
-	};
-};
-```
+Com o Reduxjs/toolkit existe a tendência de se simplificar a arquitetura do Redux diminuindo o número de módulos necessários.
 
 <br />
 
-Depois de definir as Actions, são criados os **Reducers** para as actions:
+Para a arquitetura original do Redux era necessário 03 módulos iniciais:
 
+- Actions
+- Reducers
+- Store
+
+
+<br />
+
+Com o toolkit, os módulos de Reducer e de Actions são reunídos em um módulo de Slice:
+
+- Slice: actions-reducers 
+- Store
+
+
+<br />
+
+**movieSlice.js**
 ```
-import { ActionTypes } from '../constants/action-types';
+import { createSlice } from '@reduxjs/toolkit';
 
-
+// params
+// 1. slice name 2. initial state 
+// 3. reducers 4. extra reducers (optional)
 const initialState = {
-	products: [],
+	movies: {},
 };
 
-export const productReducer = (state = initialState, {type, payload }) => {
-	switch (type) {
-		case ActionTypes.SET_PRODUCTS:
-			return {...state, products: payload };
-		default:
-			return state;
-	}
-};
-
-
-export const selectedProductReducer = (state = {}, { type, payload }) => {
-	switch (type) {
-		case ActionTypes.SELECTED_PRODUCT:
-			return {...state, ...payload};
-		case ActionTypes.REMOVE_SELECTED_PRODUCT:
-			return {};
-		default:
-			return state;
-	}
-};
-```
-
-<br />
-
-Agora, os **Reducers** criados na aplicação são reunidos em um objeto Redux do tipo **combinedReducers**:
-
-<br />
-
-```
-import { combineReducers } from 'redux';
-
-// reducers items
-import { productReducer, selectedProductReducer } from './productReducer';
-
-const reducers = combineReducers({
-	allProducts: productReducer,
-	product: selectedProductReducer
+const movieSlice = createSlice({
+	name: 'movies',
+	initialState,
+	reducers: {
+		addMovies: (state, { payload }) => {
+			state.movies = payload;
+		},
+	},
 });
 
-export default reducers;
+export const { addMovies } = movieSlice.actions;
+
+export const getAllMovies = (state) => state.movies.movies;
+
+export default movieSlice.reducer;
 ```
 
 <br />
 
-A seguir é preciso trazer os reducers combinados para a criação da **Store**:
+**store.js**
+
 
 <br />
 
 ```
-import { createStore } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
 
 // reducers
-import reducers from './reducers/index';
+import moviesReducer from './movies/movieSlice';
 
-// combined reducers + state
-const store = createStore(
-	reducers, 
-	{}, 
-	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
-
-export default store;
+export const store = configureStore({
+	reducer: {
+		movies: moviesReducer
+	},
+});
 ```
 
 <br />
 
-Após ser construída a estrutura do Redux é preciso ligá-lo à aplicação do React-JS, sendo que isto é feito com o uso de o componente **Provider** da biblioteca 'react-redux', que vai envelopar o componente principal App.js da aplicação e vai passar a Store criada como props:
+Após ser construída a estrutura do Redux com o Reduxjs/toolkit é preciso ligá-lo à aplicação do React-JS, sendo que isto é feito com o uso de o componente **Provider** da biblioteca 'react-redux', que vai envelopar o componente principal App.js da aplicação e vai passar a Store criada como props:
 
 
 <br />
@@ -203,14 +148,14 @@ ReactDOM.render(
 
 <br />
 
-Finalmente, dentrol da aplicação, a comunicação entre os componentes e a Store é feita principalmente com Hooks da biblioteca **react-redux**:
+Finalmente, dentro da aplicação, a comunicação entre os componentes e a Store é feita principalmente com Hooks da biblioteca **react-redux**:
 
 - useSelector
 
 <br />
 
 ```
-const products = useSelector((state) => state.allProducts.products);
+const movies = useSelector(getAllMovies);
 ```
 
 <br />
@@ -221,6 +166,8 @@ const products = useSelector((state) => state.allProducts.products);
 
 ```
 const dispatch = useDispatch();
+
+dispatch(addMovies(response.data));
 ```
 
 <br />
