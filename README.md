@@ -29,6 +29,7 @@ Dependências:
 - @Reduxjs/toolkit
 - Axios
 - Node-scss
+- React-slick (carousel)
 
 
 <br />
