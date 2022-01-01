@@ -44,9 +44,9 @@ Dependências:
 
 <br />
 
-### A:
+### Abaixo temos o sistema de pastas **simplificado** para os componentes do Reduxjs-toolkit:
 
-![Abaixo temos o sistema de pastas para os componentes do Redux](/public/images/)
+![Abaixo temos o sistema de pastas para os componentes do Reduxjs-toolkit](/public/images/sistema-pastas-do-reduxjs-toolkit.png)
 
 
 <br />
@@ -79,47 +79,92 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import movieApi from '../../common/apis/movieApi';
 import { APIKey } from '../../common/apis/MovieApiKey';
 
-export const fetchAsyncMovies = createAsyncThunk('movies/fetchAsyncMovies', async () => {
-	const movieText = "Harry";
-	
-	const response = await movieApi.get(`?apiKey=${APIKey}&s=${movieText}&type=movie`);
-	
-	return response.data;
-});
+export const fetchAsyncMovies = createAsyncThunk(
+	'movies/fetchAsyncMovies', 
+	async (search) => {	
+		const response = await movieApi.get(`?apiKey=${APIKey}&s=${search}&type=movie`);
+		
+		return response.data;
+	}
+);
+
+export const fetchAsyncShows = createAsyncThunk(
+	'movies/fetchAsyncShows',
+	async (search) => {
+		const response = await movieApi.get(`?apiKey=${APIKey}&s=${search}&type=series`);
+		
+		return response.data;
+	}
+);
+
+export const fetchAsyncMovieOrShowDetail = createAsyncThunk(
+	'movies/fetchAsyncMovieOrShowDetail',
+	async (id) => {
+		const response = await movieApi.get(`?apiKey=${APIKey}&i=${id}&Plot=full`);
+		
+		return response.data;
+	}
+);
 
 // params
 // 1. slice name 2. initial state 
 // 3. reducers 4. extra reducers (optional)
 const initialState = {
 	movies: {},
+	shows: {},
+	selectedMovieOrShow: {},
 };
 
 const movieSlice = createSlice({
 	name: 'movies',
 	initialState,
 	reducers: {
-		addMovies: (state, { payload }) => {
-			state.movies = payload;
+		removeSelectedMovieOrShow: (state) => {
+			state.selectedMovieOrShow = {};
 		},
 	},
 	extraReducers: {
 		[fetchAsyncMovies.pending]: () => {
-			console.log('Fetch pending.....');
+			console.log('Fetch movies pending.....');
 		},
 		[fetchAsyncMovies.fulfilled]: (state, { payload }) => {
-			console.log('Fetched Successfully.....');
+			console.log('Fetched movies Successfully.....');
 			
 			return { ...state, movies: payload };
 		},
 		[fetchAsyncMovies.rejected]: () => {
-			console.log('Fetch rejected.....')
+			console.log('Fetch movies rejected.....');
+		},
+		[fetchAsyncShows.pending]: () => {
+			console.log('Fetch shows pending.....');
+		},
+		[fetchAsyncShows.fulfilled]: (state, { payload }) => {
+			console.log('Fetched shows Successfully.....');
+			
+			return { ...state, shows: payload };
+		},
+		[fetchAsyncShows.rejected]: () => {
+			console.log('Fetch shows rejected.....');
+		},
+		[fetchAsyncMovieOrShowDetail.pending]: () => {
+			console.log('Fetch details pending.....');
+		},
+		[fetchAsyncMovieOrShowDetail.fulfilled]: (state, { payload }) => {
+			console.log('Fetched details Successfully.....');
+			
+			return { ...state, selectedMovieOrShow: payload };
+		},
+		[fetchAsyncMovieOrShowDetail.rejected]: () => {
+			console.log('Fetch details rejected.....');
 		},
 	},
 });
 
-export const { addMovies } = movieSlice.actions;
+export const { removeSelectedMovieOrShow } = movieSlice.actions;
 
 export const getAllMovies = (state) => state.movies.movies;
+export const getAllShows = (state) => state.movies.shows;
+export const getSelectedMovieOrShow = (state) => state.movies.selectedMovieOrShow;
 
 export default movieSlice.reducer;
 ```
@@ -198,20 +243,17 @@ dispatch(addMovies(response.data));
 
 <br />
 
-### I:
+### Imagem do App Redux-toolkit Cinema na sua página principal:
 
-![Imagem da vitrine de produtos criada pelo App Redux Shop](/public/images/)
-
-
-
+![Imagem do Redux-toolkit Cinema App](/public/images/redux-toolkit-reactjs-cinema-01.png)
 
 
 
 <br />
 
-### I:
+### Imagem do App Redux-toolkit Cinema na página de detalhes:
 
-![Imagem da página de detales do produto selecionado renderizada pelo App Redux Shop](/public/images/)
+![Imagem da página de detales do produto selecionado renderizada pelo App Redux Shop](/public/images/redux-toolkit-reactjs-cinema-021.png)
 
 
 
