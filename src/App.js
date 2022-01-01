@@ -1,7 +1,8 @@
 // https://www.youtube.com/watch?v=2kL28Qyw9-0
-//  1hs  16' 10''
+//  1hs  17' 40''
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 // styles
 import './App.scss'; 
   
@@ -17,8 +18,6 @@ import MovieDetail from './components/MovieDetail/MovieDetail';
 function App() {
 	 
 	
-
- 
   return (
     <div className="app">
 			<Router>

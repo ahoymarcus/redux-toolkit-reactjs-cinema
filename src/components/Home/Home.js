@@ -14,7 +14,6 @@ import MovieList from '../MovieList/MovieList';
 
 
 
-
 const Home = () => {
 	const dispatch = useDispatch();
 	
@@ -22,7 +21,7 @@ const Home = () => {
 	useEffect(() => {
 		dispatch(fetchAsyncMovies());
 		dispatch(fetchAsyncShows());
-	}, []);
+	}, [dispatch]);
 	
 	
 	return (

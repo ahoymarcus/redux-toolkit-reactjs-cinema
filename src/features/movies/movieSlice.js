@@ -8,12 +8,13 @@ import { APIKey } from '../../common/apis/MovieApiKey';
 export const fetchAsyncMovies = createAsyncThunk(
 	'movies/fetchAsyncMovies', 
 	async () => {
-	const movieText = "Harry";
-	
-	const response = await movieApi.get(`?apiKey=${APIKey}&s=${movieText}&type=movie`);
-	
-	return response.data;
-});
+		const movieText = "Harry";
+		
+		const response = await movieApi.get(`?apiKey=${APIKey}&s=${movieText}&type=movie`);
+		
+		return response.data;
+	}
+);
 
 export const fetchAsyncShows = createAsyncThunk(
 	'movies/fetchAsyncShows',
@@ -23,7 +24,17 @@ export const fetchAsyncShows = createAsyncThunk(
 		const response = await movieApi.get(`?apiKey=${APIKey}&s=${serieText}&type=series`);
 		
 		return response.data;
-});
+	}
+);
+
+export const fetchAsyncMovieOrShowDetail = createAsyncThunk(
+	'movies/fetchAsyncMovieOrShowDetail',
+	async (id) => {
+		const response = await movieApi.get(`?apiKey=${APIKey}&i=${id}&Plot=full`);
+		
+		return response.data;
+	}
+);
 
 // params
 // 1. slice name 2. initial state 
@@ -31,6 +42,7 @@ export const fetchAsyncShows = createAsyncThunk(
 const initialState = {
 	movies: {},
 	shows: {},
+	selectedMovieOrShow: {},
 };
 
 
@@ -65,6 +77,17 @@ const movieSlice = createSlice({
 		[fetchAsyncShows.rejected]: () => {
 			console.log('Fetch shows rejected.....');
 		},
+		[fetchAsyncMovieOrShowDetail.pending]: () => {
+			console.log('Fetch details pending.....');
+		},
+		[fetchAsyncMovieOrShowDetail.fulfilled]: (state, { payload }) => {
+			console.log('Fetched details Successfully.....');
+			
+			return { ...state, selectedMovieOrShow: payload };
+		},
+		[fetchAsyncMovieOrShowDetail.rejected]: () => {
+			console.log('Fetch details rejected.....');
+		},
 	},
 });
 
@@ -74,6 +97,7 @@ export const { addMovies } = movieSlice.actions;
 
 export const getAllMovies = (state) => state.movies.movies;
 export const getAllShows = (state) => state.movies.shows;
+export const getSelectedMovieOrShow = (state) => state.movies.selectedMovieOrShow;
 
 export default movieSlice.reducer;
 
