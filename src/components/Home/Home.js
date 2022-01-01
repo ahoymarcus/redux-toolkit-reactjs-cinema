@@ -17,10 +17,13 @@ import MovieList from '../MovieList/MovieList';
 const Home = () => {
 	const dispatch = useDispatch();
 	
+	const movieSearch = 'Harry';
+	const serieSearch = 'Friends';
+	
 	
 	useEffect(() => {
-		dispatch(fetchAsyncMovies());
-		dispatch(fetchAsyncShows());
+		dispatch(fetchAsyncMovies(movieSearch));
+		dispatch(fetchAsyncShows(serieSearch));
 	}, [dispatch]);
 	
 	
