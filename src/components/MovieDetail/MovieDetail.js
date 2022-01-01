@@ -7,7 +7,8 @@ import './MovieDetail.scss';
 
 import { 
 	fetchAsyncMovieOrShowDetail,
-	getSelectedMovieOrShow 
+	getSelectedMovieOrShow,
+	removeSelectedMovieOrShow	
 } from '../../features/movies/movieSlice';
 
 
@@ -23,6 +24,10 @@ const MovieDetail = () => {
 	
 	useEffect(() => {
 		dispatch(fetchAsyncMovieOrShowDetail(imdbID));
+		
+		return () => {
+			dispatch(removeSelectedMovieOrShow());
+		};
 	}, [dispatch, imdbID]);
 	
 
