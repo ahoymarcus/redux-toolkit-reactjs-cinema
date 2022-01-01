@@ -253,7 +253,7 @@ dispatch(addMovies(response.data));
 
 ### Imagem do App Redux-toolkit Cinema na página de detalhes:
 
-![Imagem da página de detales do produto selecionado renderizada pelo App Redux Shop](/public/images/redux-toolkit-reactjs-cinema-021.png)
+![Imagem da página de detales do produto selecionado renderizada pelo App Redux Shop](/public/images/redux-toolkit-reactjs-cinema-02.png)
 
 
 
