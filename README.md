@@ -2,7 +2,7 @@
 
 <br />
 
-O projeto cria um app com React-JS que consome de uma API pública de ...:[^1]
+O projeto cria um app com React-JS que consome de uma API pública de filmes para montar um carrossel com filmes e séries, permitindo ainda a seleção de um página com informações detalhadas do programa escolhido:[^1]
 
 <br />
 
