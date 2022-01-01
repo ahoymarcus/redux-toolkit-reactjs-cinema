@@ -6,6 +6,15 @@
 	cursor: pointer;
 	transition: all 0.3s;
 	
+	/* Properties for REACT SLIDER */
+	min-height: 450px;
+	height: 100%;
+	margin: 10px;
+	/* Properties for REACT SLIDER */
+	@media only screen and (min-width: 480px) and (max-width: 790px) {
+		min-height: 542px;
+	}
+	
 	&:hover {
 		transform: scale(1.1);
 		transition: all 0.3s;

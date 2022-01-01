@@ -1,4 +1,5 @@
 import React from 'react';
+import Slider from 'react-slick';
 import { useSelector } from 'react-redux';
 
 import { 
@@ -8,6 +9,7 @@ import {
 
 // styles
 import './MovieList.scss';
+import { Settings } from '../../common/settings';
 
 // components
 import MovieCard from '../MovieCard/MovieCard';
@@ -46,19 +48,28 @@ const MovieList = () => {
 		</div>
 	);
 	
+	// Slider settings
+	// const settings = {
+		// dots: false,
+		// infinite: true,
+		// speed: 500,
+		// slidesToShow: 6,
+		// slidesToScroll: 3
+	// };
+	
 		
 	return (
 		<div className="movie-wrapper">
 			<div className="movie-list">
 				<h2>Movies</h2>
 				<div className="movie-list-container">
-					{renderMovies}
+					<Slider { ...Settings }>{renderMovies}</Slider>
 				</div>
 			</div>
 			<div className="show-list">
 				<h2>Shows</h2>
 				<div className="shows-list-container">
-					{renderShows}
+					<Slider { ...Settings }>{renderShows}</Slider>
 				</div>
 			</div>
 		</div>
